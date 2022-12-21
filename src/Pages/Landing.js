@@ -1,22 +1,48 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
+import { useGithubContext } from '../context/context'
 
 export default function Landing() {
+  const navigate = useNavigate()
+  const {user,setInputText,fetchUser,notFound} = useGithubContext()
+  const [name,setName] = useState('')
+  const [gitUser,setGitUser] = useState('rohansthaart')
+  
+const OnChange = (e)=>{
+  setName(e.target.value)
+  
+}
+
+
+  const GenerateUser = (e) =>  {
+    e.preventDefault();    
+    // fetchUser(`https://api.github.com/users/${name}`)
+    
+     navigate('/main')
+    
+  }
+
+
+
+  // useEffect(()=>{
+  //   fetchUser(`https://api.github.com/users/${gitUser}`)
+  // },[gitUser])
+if(user){
+  console.log(user);
+}
   return (
    <Wrapper>
 
-        <div> <h1 className='heading'>Github Profile</h1></div>
-            <h3 className='sub-heading'>Generate your Github Profile</h3>
-            <form action="">
-                <input type="text" className='form' placeholder='Github Username'/>
-                <div className='submit'>
-                    <div className="center">
-
-                <p className='submit-text'>Generate</p>
-                    </div>
-              
-                </div>
+        <div> 
+            <h1 className='heading'>Github Profile</h1>        
+            <h1 className='sub-heading'>Generate your Github Profile</h1>
+        </div>
+            <form>
+                <input type="text" className='form' placeholder='Github Username' value={name} onChange={OnChange}/>
+             <button className='submit-btn' onClick={GenerateUser}> Generate</button>
             </form>
+            
    </Wrapper>
   )
 }
@@ -75,34 +101,19 @@ border: 1px solid #000000;
 border-radius: 6px;
   }
 
-  .submit{
-    
-      position: absolute;
-    
-    text-align: center;
-    width: 245.78px;
-    height: 56px;
-    left: 769.78px;
-    top: 396px;
+  .submit-btn{
+    box-sizing: border-box;
+
+position: absolute;
+width: 245.78px;
+height: 56px;
+left: 769.78px;
+top: 396px;
 
 background: #DE5A21;
 border: 1px solid #F24E1E;
 border-radius: 6px;
-  }
-
-  .submit-text{
-   
-padding: 16px;
-
-font-family: 'Roboto';
-font-style: normal;
-font-weight: 400;
-font-size: 18px;
-line-height: 21px;
-
-color: #FFFFFF;
-
-
+color:#fff;
   }
   `
 
